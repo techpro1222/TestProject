@@ -1,0 +1,77 @@
+﻿@model List<DataLib.Entities.Order>
+@{
+    ViewData["Title"] = "Layout dashboard";
+    Layout = "~/Views/Shared/adminlayout.cshtml";
+}
+<form role="form" id="quickForm" asp-action="Index">
+
+    <div class="card-body">
+        <div class="row col-md-12">
+
+           
+
+        </div>
+
+        <!-- Modals -->
+        <div class="modal fade" id="AccountModel" tabindex="-1" role="dialog" aria-labelledby="AccountModel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="AccountModel">Parking Details</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="txtAssetId" class="control-label">Asset ID</label>
+                            <input type="text" id="txtAssetId" class="form-control" />
+                        </div>
+                    </div>
+                    @*<div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" onclick="Save()">Save changes</button>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal">Close</button>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.card -->
+</form>
+
+@section Scripts{
+    <script>
+
+        @*$(document).ready(function ()
+        {
+            var count = @Model.Count();
+            debugger;
+
+        });*@
+        function DataTooltip(AssetID) {
+
+            $('#txtAssetId').val(AssetID);
+            $('#AccountModel').modal('show');
+            //$(".ParkingAreaOccupie").attr('title', 'ID : '+AssetID+'');
+            //$(".ParkingPlaceOccupie").attr('title', 'ID : ' + AssetID + '');
+            //$(".ParkingPlace").attr('title', 'ID : ' + AssetID + '');
+            //$(".ParkingAreaHorizontalOccupie").attr('title', 'ID : ' + AssetID + '');
+            //$(".ParkingAreaHorizontal").attr('title', 'ID : ' + AssetID + '');
+            //$(".ParkingPlaceHorizontalOccupie").attr('title', 'ID : ' + AssetID + '');
+            //$(".ParkingPlaceHorizontal").attr('title', 'ID : ' + AssetID + '');
+           
+        }
+
+      $(function () {
+          $('#tbllayout').DataTable({
+              "paging": false,
+              "lengthChange": false,
+              "searching": false,
+              "ordering": true,
+              "info": false,
+              "autoWidth": false,
+              "responsive": true,
+            });
+        });
+    </script>
+}

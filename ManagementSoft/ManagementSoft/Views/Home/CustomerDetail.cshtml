@@ -1,0 +1,119 @@
+﻿@model IEnumerable<DataLib.Entities.Customer>
+
+@{
+    ViewData["Title"] = "CustomerDetail";
+    Layout = "~/Views/Shared/adminlayout.cshtml";
+}
+
+<form role="form" id="quickForm" asp-action="UsersDetail" style="width:100%">
+    <div class="card-body">
+
+        <div class="col-md-12">
+            <input type="button" id="btnAdd" class="btn btn-success" style="margin-top: 14px; margin-bottom:10px; float:right;" value="Add Customer" onclick="@("window.location.href='" + @Url.Action("AddCustomer", "Home") + "'");" />
+        </div>
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CompanyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ContactTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Region)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostalCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Country)
+                    </th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CompanyName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ContactTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Region)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PostalCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Country)
+                            </td>
+                            <td class="textcentre">
+                                <a href="~/Home/AddCustomer?Id=@item.Id" class="btn btn-datatable btn-icon btn-transparent-dark"><i class="fa fa-edit"></i></a> |
+                                <a href="#" class="btn btn-datatable btn-icon btn-transparent-dark" onclick="Delete(@item.Id)"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+</form>
+
+@section Scripts{
+
+    <script>
+        function Delete(id) {
+            $.ajax({
+                type: "POST",
+                url: '/Home/DeleteCustomer',
+                data: { Id: id },
+
+                success: function (data) {
+                    alert("Deleted Successfully");
+                    location.reload();
+                },
+                error: function (x) {
+                    alert("Something went wrong");
+                }
+            })
+        }
+        $(function () {
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": false,
+                "autoWidth": true,
+                "responsive": true,
+            });
+        });
+    </script>
+}

@@ -1,0 +1,46 @@
+﻿@model DataLib.Entities.Order
+
+@{
+    ViewData["Title"] = "AddOrder";
+    Layout = "~/Views/Shared/adminlayout.cshtml";
+}
+
+<form role="form" id="quickForm" asp-action="AddOrder">
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id"/>
+        <div class="row col-md-12">
+            <div class="col-md-6">
+                <label asp-for="OrderDate" class="control-label"></label>
+                <input asp-for="OrderDate" class="form-control" required />
+                <span asp-validation-for="OrderDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="RequiredDate" class="control-label"></label>
+                <input asp-for="RequiredDate" class="form-control" required />
+                <span asp-validation-for="RequiredDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label>Customer</label>
+            <select id="ddlcategory" asp-for="CustomerId" class="form-control" required>
+                <option value="0">--Select Customer--</option>
+                @foreach (var item in ViewBag.Customers)
+                {
+                    <option value="@item.Id">@item.ContactTitle</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ShipingAddress" class="control-label"></label>
+            <input asp-for="ShipingAddress" class="form-control" />
+            <span asp-validation-for="ShipingAddress" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-action="Order" class="btn btn-danger">Back</a>
+        </div>
+    </div>
+</form>
+
